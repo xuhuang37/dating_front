@@ -9,8 +9,8 @@
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "src",
-    "forceConsistentCasingInFileNames": true,
+    "rootDir": "/",
+    "forceConsistentCasingInFileNames": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
@@ -20,6 +20,7 @@
     "noUnusedLocals": true
   },
   "exclude": [
+    "config",
     "node_modules",
     "build",
     "scripts",
