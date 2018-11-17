@@ -1,66 +1,34 @@
-import { Table } from "antd";
 import * as React from "react";
+import {isDev} from './utils/index';
+import { Router,Route } from 'react-router';
+import { observer, inject} from 'mobx-react';
+import {createHashHistory} from 'history';
+import {syncHistoryWithStore, RouterStore} from 'mobx-react-router';
+import * as allStores from './stores';
+import DevTools from 'mobx-react-devtools';
+
 import "./App.css";
 
-import logo from "./logo.svg";
+const hashHistory = createHashHistory();
+const history = syncHistoryWithStore(hashHistory,allStores.routerStore)
 
-const columns = [
-  {
-    dataIndex: "name",
-    key: "name",
-    title: "昵称"
-  },
-  {
-    dataIndex: "age",
-    key: "age",
-    title: "Age"
-  },
-  {
-    dataIndex: "address",
-    key: "address",
-    title: "Address"
-  },
-  {
-    dataIndex: "action",
-    key: "action",
-    title: "Action"
-  }
-];
-const datas = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park"
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park"
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park"
-  }
-];
+interface AppProps {
 
-class App extends React.Component {
-  public render() {
+}
+const devtools = isDev ? <DevTools /> : null;
+@inject('routerStore')
+@observer
+class App extends React.Component<AppProps> {
+  render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <div>
-          <Table columns={columns} dataSource={datas} />
-        </div>
+      <Router history={history}>
+        <div className="App">
+        {devtools}
+        <Route path="/" exact={true} component={}/>
       </div>
+      </Router>
+      
     );
   }
 }
-
 export default App;
